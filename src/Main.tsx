@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { FC } from 'react'
 import { Provider } from 'react-redux'
 import { Store } from 'redux'
 
@@ -12,7 +12,7 @@ interface IProps {
 }
 
 // Create an intersection type of the component props and our Redux props.
-const Main: React.FC<IProps> = ({ store }) => {
+const Main: FC<IProps> = ({ store }) => {
   return (
     <Provider store={store}>
       <Authentication>

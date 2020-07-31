@@ -1,10 +1,14 @@
 import React, { FC } from 'react'
-import { Button } from 'antd'
+import { BrowserRouter as Router } from 'react-router-dom'
 
-const App: FC = () => (
-  <div className="App">
-    <Button type="primary">Button</Button>
-  </div>
-)
+import Routing from './pages'
+
+const App: FC<{}> = () => {
+  return (
+    <Router>
+      <Routing />
+    </Router>
+  )
+}
 
 export default App
