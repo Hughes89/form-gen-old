@@ -2,6 +2,7 @@
   "name": "form-gen",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:1337",
   "dependencies": {
     "@craco/craco": "^5.6.4",
     "@testing-library/jest-dom": "^4.2.4",
