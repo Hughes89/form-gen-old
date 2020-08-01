@@ -8,6 +8,9 @@ import {
 } from '@ant-design/icons'
 import styled from 'styled-components'
 
+import { INav } from '../../../hooks'
+import { useHistory } from 'react-router-dom'
+
 const { SubMenu } = Menu
 const { Sider } = Layout
 
@@ -28,27 +31,51 @@ const BottomMenu = styled.div`
   flex: 0;
 `
 
-const AdminDrawer: FC = () => {
+const getDefaultKey = (): string[] => {
+  const path: string = window.location.pathname
+  if (path.includes('/admin/form')) {
+    const slug: string = path.split('/')[3]
+    return [slug]
+  } else {
+    return ['settings']
+  }
+}
+
+interface IProps {
+  forms: INav[]
+}
+
+const AdminDrawer: FC<IProps> = ({ forms }) => {
+  const history = useHistory()
+
   return (
     <SiderNav width={240} className="site-layout-background">
       <MenuWrapper>
         <TopMenu>
           <Menu
             mode="inline"
-            defaultSelectedKeys={['1']}
+            defaultSelectedKeys={getDefaultKey()}
             defaultOpenKeys={['forms']}
             style={{ height: '100%', borderRight: 0 }}
           >
             <SubMenu key="forms" icon={<FormOutlined />} title="Forms">
-              <Menu.Item key="1">option1</Menu.Item>
-              <Menu.Item key="2">option2</Menu.Item>
-              <Menu.Item key="3">option3</Menu.Item>
-              <Menu.Item key="4">option4</Menu.Item>
+              {forms.map(({ slug, title }: INav) => (
+                <Menu.Item
+                  key={slug}
+                  onClick={() => history.push(`/admin/form/${slug}`)}
+                >
+                  {title}
+                </Menu.Item>
+              ))}
             </SubMenu>
             <Menu.Item key="create" icon={<PlusOutlined />}>
               Create Form
             </Menu.Item>
-            <Menu.Item key="settings" icon={<SettingOutlined />}>
+            <Menu.Item
+              key="settings"
+              icon={<SettingOutlined />}
+              onClick={() => history.push('/admin')}
+            >
               Settings
             </Menu.Item>
           </Menu>
