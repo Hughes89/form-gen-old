@@ -1,7 +1,11 @@
 import { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { Form, setCurrentForm as setCurrentFormAction } from '../store/forms'
+import {
+  Form,
+  Forms,
+  setCurrentForm as setCurrentFormAction,
+} from '../store/forms'
 import { ApplicationState } from '../store'
 
 export interface INav {
@@ -13,6 +17,9 @@ export const useForms = () => {
   const dispatch = useDispatch()
   const loading: boolean = useSelector(
     (state: ApplicationState): boolean => state.forms.loading
+  )
+  const allForms = useSelector(
+    (state: ApplicationState): Forms => state.forms.all
   )
 
   const navigation = useSelector((state: ApplicationState): INav[] => {
@@ -30,9 +37,12 @@ export const useForms = () => {
   )
 
   const setCurrentForm = useCallback(
-    (slug: string): void => {
-      console.log(slug)
-      dispatch(setCurrentFormAction(slug))
+    (slug: string): boolean => {
+      if (allForms[slug]) {
+        dispatch(setCurrentFormAction(slug))
+        return true // Form exists successful set
+      }
+      return false // No Form redirect
     },
     [dispatch]
   )
@@ -42,5 +52,6 @@ export const useForms = () => {
     navigation,
     setCurrentForm,
     currentForm,
+    forms: allForms,
   }
 }
