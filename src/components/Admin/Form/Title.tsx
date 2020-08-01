@@ -1,11 +1,9 @@
 import React, { FC } from 'react'
-import { Row, Col, Space, Button, Dropdown, Menu, Select, Radio } from 'antd'
+import { Row, Col, Space, Radio } from 'antd'
 import { EditOutlined, EyeOutlined } from '@ant-design/icons'
 import styled from 'styled-components'
 
 import AdminHeader from '../Header'
-
-const { Option } = Select
 
 const ToggleWrapper = styled(({ primary, ...props }) => <Col {...props} />)`
   text-align: left;

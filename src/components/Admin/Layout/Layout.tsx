@@ -2,6 +2,7 @@ import React, { FC, ReactChildren, useState } from 'react'
 import { Layout, Drawer } from 'antd'
 import styled from 'styled-components'
 
+import { INav } from '../../../hooks'
 import AdminNavbar from './Navbar'
 import AdminDrawer from './Drawer'
 
@@ -10,8 +11,6 @@ const { Content } = Layout
 const LayoutWrapper = styled(({ primary, ...props }) => <Layout {...props} />)`
   height: 100%;
 `
-
-console.log(LayoutWrapper)
 
 const TabletDrawer = styled(({ primary, ...props }) => <Drawer {...props} />)`
   @media (min-width: 992px) {
@@ -27,10 +26,11 @@ const DesktopNav = styled.div`
 `
 
 interface IProps {
+  forms: INav[]
   companyName: string
 }
 
-const AdminLayout: FC<IProps> = ({ companyName, children }) => {
+const AdminLayout: FC<IProps> = ({ forms, companyName, children }) => {
   const [visible, setVisible] = useState<boolean>(false)
 
   const onClose = () => setVisible(false)
@@ -48,10 +48,10 @@ const AdminLayout: FC<IProps> = ({ companyName, children }) => {
           width={240}
           title={companyName}
         >
-          <AdminDrawer />
+          <AdminDrawer forms={forms} />
         </TabletDrawer>
         <DesktopNav>
-          <AdminDrawer />
+          <AdminDrawer forms={forms} />
         </DesktopNav>
         <Layout style={{ height: '100%', overflowY: 'auto' }}>
           <Content

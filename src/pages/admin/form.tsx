@@ -1,14 +1,12 @@
 import React, { FC, useState, useEffect } from 'react'
-import { Row, Col, Button } from 'antd'
+import { Row, Col } from 'antd'
 
-import { useSettings, useForms } from '../../hooks'
-import AdminHeader from '../../components/Admin/Header'
+import { useForms } from '../../hooks'
 import AdminFormTitle from '../../components/Admin/Form/Title'
 
 const AdminForm: FC = () => {
   const [title, setTitle] = useState<string>('')
   const { currentForm } = useForms()
-  console.log(currentForm)
 
   useEffect(() => {
     if (currentForm) {

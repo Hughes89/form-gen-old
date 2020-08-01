@@ -11,7 +11,8 @@ const Routing: React.FC<{}> = () => {
     <Switch>
       {/* <Route exact path="/" component={Customer} />
       <Route path="/form/:slug" component={Form} /> */}
-      <Route exact path="/admin" component={Admin} />
+      <Route path="/admin" component={Admin} />
+      <Route path="*" render={() => <span>404</span>} />
     </Switch>
   )
 }
