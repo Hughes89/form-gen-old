@@ -5,6 +5,9 @@ import { AuthActionTypes, IAuthState } from './types'
 export const initialState: IAuthState = {
   hasChecked: false,
   isAuthenticated: false,
+  isCheckingAuthorization: false,
+  isAuthorized: false,
+  authorizationErrors: undefined,
   errors: undefined,
 }
 
@@ -23,6 +26,23 @@ const reducer: Reducer<IAuthState> = (state = initialState, action) => {
       state = dotProp.set(state, 'errors', action.payload)
       return dotProp.set(state, 'isAuthenticated', false)
     }
+    case AuthActionTypes.CHECK_AUTHORIZATION_CODE: {
+      return dotProp.set(state, 'isCheckingAuthorization', true)
+    }
+    case AuthActionTypes.CHECK_AUTHORIZATION_CODE_SUCCESS: {
+      state = dotProp.set(state, 'isAuthorized', true)
+      return dotProp.set(state, 'isCheckingAuthorization', false)
+    }
+    case AuthActionTypes.CHECK_AUTHORIZATION_CODE_ERROR: {
+      state = dotProp.set(state, 'authorizationErrors', action.payload)
+      return dotProp.set(state, 'isCheckingAuthorization', false)
+    }
+    case AuthActionTypes.CLEAR_AUTHORIZATION: {
+      state = dotProp.set(state, 'isCheckingAuthorization', false)
+      state = dotProp.set(state, 'authorizationErrors', undefined)
+      return dotProp.set(state, 'isAuthorized', false)
+    }
+
     default: {
       return state
     }

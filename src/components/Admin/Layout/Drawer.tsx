@@ -1,5 +1,5 @@
-import React, { FC } from 'react'
-import { Link } from 'react-router-dom'
+import React, { FC, useCallback } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import { Layout, Menu } from 'antd'
 import {
   FormOutlined,
@@ -9,7 +9,7 @@ import {
 } from '@ant-design/icons'
 import styled from 'styled-components'
 
-import { INav } from '../../../hooks'
+import { useAuth, INav } from '../../../hooks'
 
 const { SubMenu } = Menu
 const { Sider } = Layout
@@ -46,6 +46,14 @@ interface IProps {
 }
 
 const AdminDrawer: FC<IProps> = ({ forms }) => {
+  const { clearAuthorization } = useAuth()
+  const history = useHistory()
+
+  const gotoCustomerMode = useCallback(() => {
+    clearAuthorization()
+    history.push('/')
+  }, [history, clearAuthorization])
+
   return (
     <SiderNav width={240} className="site-layout-background">
       <MenuWrapper>
@@ -73,8 +81,12 @@ const AdminDrawer: FC<IProps> = ({ forms }) => {
         </TopMenu>
         <BottomMenu>
           <Menu mode="inline" style={{ height: '100%', borderRight: 0 }}>
-            <Menu.Item key="logout" icon={<ArrowLeftOutlined />}>
-              <Link to="/">Customer Mode</Link>
+            <Menu.Item
+              key="logout"
+              onClick={gotoCustomerMode}
+              icon={<ArrowLeftOutlined />}
+            >
+              Customer Mode
             </Menu.Item>
           </Menu>
         </BottomMenu>

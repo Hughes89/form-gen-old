@@ -4,7 +4,8 @@ import { Form, Input, Button } from 'antd'
 import AdminCard from '../Card'
 
 const validateMessages = {
-  required: '',
+  /* eslint-disable no-template-curly-in-string */
+  required: '${label} is required!',
 }
 
 const EmployeeCode: FC = () => {
@@ -15,7 +16,7 @@ const EmployeeCode: FC = () => {
   }
 
   return (
-    <AdminCard title="Employee Code">
+    <AdminCard title="Authorization Code">
       <Form
         layout="vertical"
         form={form}

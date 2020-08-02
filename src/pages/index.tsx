@@ -17,13 +17,13 @@ const Routing: React.FC<{}> = () => {
         path="/"
         redirectTo="/login"
         component={Home}
-        isAuthenticated={isAuthenticated}
+        isAllowed={isAuthenticated}
       />
       <Route path="/login" component={Login} />
       <ProtectedRoute
         path="/admin"
         redirectTo="/login"
-        isAuthenticated={isAuthenticated}
+        isAllowed={isAuthenticated}
         component={Admin}
       />
       <Redirect from="*" to="/" />

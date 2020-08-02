@@ -1,8 +1,19 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { FC, useCallback, useState } from 'react'
+import { Button } from 'antd'
 
-const Home = () => {
-  return <Link to="/admin">Admin</Link>
+import AuthorizationModal from '../components/AuthorizationModal'
+
+const Home: FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+
+  const closeModal = useCallback(() => setIsModalOpen(false), [setIsModalOpen])
+
+  return (
+    <>
+      <AuthorizationModal open={isModalOpen} cancel={closeModal} />
+      <Button onClick={() => setIsModalOpen(true)}>Admin</Button>
+    </>
+  )
 }
 
 export default Home
