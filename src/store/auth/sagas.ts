@@ -10,12 +10,14 @@ function* getUser() {
   try {
     const res = yield call(callApi, 'get', '/user')
     if (res.status === 401) {
-      window.location.replace('http://localhost:1337/api/auth/google')
+      return yield put(fetchUserSuccess({ isAuth: false }))
+
+      // window.location.replace('http://localhost:1337/api/auth/google')
     }
     yield put(fetchSettingsSuccess(res.settings))
     yield put(fetchWaiversSuccess(res.waivers))
     yield put(fetchFormsSuccess(res.waivers))
-    yield put(fetchUserSuccess())
+    yield put(fetchUserSuccess({ isAuth: true }))
   } catch (err) {
     if (err instanceof Error && err.stack) {
       yield put(fetchUserError(err.stack))

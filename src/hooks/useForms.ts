@@ -44,7 +44,7 @@ export const useForms = () => {
       }
       return false // No Form redirect
     },
-    [dispatch]
+    [dispatch, allForms]
   )
 
   return {

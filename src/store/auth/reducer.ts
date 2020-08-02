@@ -3,6 +3,7 @@ import dotProp from 'dot-prop-immutable'
 import { AuthActionTypes, IAuthState } from './types'
 
 export const initialState: IAuthState = {
+  hasChecked: false,
   isAuthenticated: false,
   errors: undefined,
 }
@@ -15,7 +16,8 @@ const reducer: Reducer<IAuthState> = (state = initialState, action) => {
       return dotProp.set(state, 'loading', true)
     }
     case AuthActionTypes.FETCH_USER_SUCCESS: {
-      return dotProp.set(state, 'isAuthenticated', true)
+      state = dotProp.set(state, 'hasChecked', true)
+      return dotProp.set(state, 'isAuthenticated', action.payload.isAuth)
     }
     case AuthActionTypes.FETCH_USER_ERROR: {
       state = dotProp.set(state, 'errors', action.payload)

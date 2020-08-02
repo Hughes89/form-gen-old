@@ -1,11 +1,12 @@
 import React, { FC, ReactElement } from 'react'
 
 import { useAuth } from '../hooks'
+import Loading from './Loading'
 
 const Authentication: FC = ({ children }) => {
-  const { isAuthenticated } = useAuth()
+  const { hasChecked } = useAuth()
 
-  return !isAuthenticated ? <>Loading...</> : (children as ReactElement)
+  return !hasChecked ? <Loading tip="Loading..." /> : (children as ReactElement)
 }
 
 export default Authentication

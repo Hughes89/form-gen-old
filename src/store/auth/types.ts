@@ -12,4 +12,5 @@ export interface IUser {
 export interface IAuthState {
   readonly isAuthenticated: boolean
   readonly errors?: string
+  readonly hasChecked: boolean
 }

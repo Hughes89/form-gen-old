@@ -41,7 +41,7 @@ const DropDownLink = styled.a`
 const UserMenu = (
   <Menu>
     <Menu.Item key="logout" icon={<LogoutOutlined />}>
-      Log Out
+      <a href="/api/auth/logout">Log Out</a>
     </Menu.Item>
   </Menu>
 )

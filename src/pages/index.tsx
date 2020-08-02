@@ -1,18 +1,32 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
-// import { useAuth } from '../hooks'
+import { useAuth } from '../hooks'
+import ProtectedRoute from '../components/ProtectedRoute'
+import Login from './login'
+import Home from './home'
 import Admin from './admin/admin'
 
 const Routing: React.FC<{}> = () => {
-  // const { isAuthenticated } = useAuth()
+  const { isAuthenticated } = useAuth()
 
   return (
     <Switch>
-      {/* <Route exact path="/" component={Customer} />
-      <Route path="/form/:slug" component={Form} /> */}
-      <Route path="/admin" component={Admin} />
-      <Route path="*" render={() => <span>404</span>} />
+      <ProtectedRoute
+        exact
+        path="/"
+        redirectTo="/login"
+        component={Home}
+        isAuthenticated={isAuthenticated}
+      />
+      <Route path="/login" component={Login} />
+      <ProtectedRoute
+        path="/admin"
+        redirectTo="/login"
+        isAuthenticated={isAuthenticated}
+        component={Admin}
+      />
+      <Redirect from="*" to="/" />
     </Switch>
   )
 }

@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { Link } from 'react-router-dom'
 import { Layout, Menu } from 'antd'
 import {
   FormOutlined,
@@ -9,7 +10,6 @@ import {
 import styled from 'styled-components'
 
 import { INav } from '../../../hooks'
-import { useHistory } from 'react-router-dom'
 
 const { SubMenu } = Menu
 const { Sider } = Layout
@@ -46,8 +46,6 @@ interface IProps {
 }
 
 const AdminDrawer: FC<IProps> = ({ forms }) => {
-  const history = useHistory()
-
   return (
     <SiderNav width={240} className="site-layout-background">
       <MenuWrapper>
@@ -60,30 +58,23 @@ const AdminDrawer: FC<IProps> = ({ forms }) => {
           >
             <SubMenu key="forms" icon={<FormOutlined />} title="Forms">
               {forms.map(({ slug, title }: INav) => (
-                <Menu.Item
-                  key={slug}
-                  onClick={() => history.push(`/admin/form/${slug}`)}
-                >
-                  {title}
+                <Menu.Item key={slug}>
+                  <Link to={`/admin/form/${slug}`}>{title}</Link>
                 </Menu.Item>
               ))}
             </SubMenu>
             <Menu.Item key="create" icon={<PlusOutlined />}>
               Create Form
             </Menu.Item>
-            <Menu.Item
-              key="settings"
-              icon={<SettingOutlined />}
-              onClick={() => history.push('/admin')}
-            >
-              Settings
+            <Menu.Item key="settings" icon={<SettingOutlined />}>
+              <Link to="/admin/settings">Settings</Link>
             </Menu.Item>
           </Menu>
         </TopMenu>
         <BottomMenu>
           <Menu mode="inline" style={{ height: '100%', borderRight: 0 }}>
             <Menu.Item key="logout" icon={<ArrowLeftOutlined />}>
-              Customer Mode
+              <Link to="/">Customer Mode</Link>
             </Menu.Item>
           </Menu>
         </BottomMenu>
